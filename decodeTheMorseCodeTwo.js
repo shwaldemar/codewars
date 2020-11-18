@@ -95,10 +95,6 @@ var decodeBits = (bits) => {
     .replace(/[0]{2}/g, "")
 }
 
-// var decodeMorse = function(morseCode){
-//     // ToDo: Accept dots, dashes and spaces, return human-readable message
-//     return morseCode.replace('.', morse_obj['.']).replace('-', morse_obj['-']).replace(' ', '');
-// }
 let morse = decodeBits(bits)
 console.log(morse)
 
