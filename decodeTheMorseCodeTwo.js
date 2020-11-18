@@ -28,18 +28,23 @@ As you may see, this transmission is perfectly accurate according to the standar
 
 That said, your task is to implement two functions:
 
-Function decodeBits(bits), that should find out the transmission rate of the message, correctly decode the message to dots ., dashes - and spaces (one between characters, three between words) and return those as a string. Note that some extra 0's may naturally occur at the beginning and the end of a message, make sure to ignore them. Also if you have trouble discerning if the particular sequence of 1's is a dot or a dash, assume it's a dot.
+Function decodeBits(bits), that should find out the transmission rate of the message, correctly decode the message to
+dots .,
+dashes - and spaces (one between characters, three between words) and return those as a string.
+
+Note that some extra 0's may naturally occur at the beginning and the end of a message, make sure to ignore them. Also if you have trouble discerning if the particular sequence of 1's is a dot or a dash, assume it's a dot.
+
 2. Function decodeMorse(morseCode), that would take the output of the previous function and return a human-readable string.
 
 NOTE: For coding purposes you have to use ASCII characters . and -, not Unicode characters.
 
 The Morse code table is preloaded for you (see the solution setup, to get its identifier in your language).
 
-
 Eg:
   morseCodes(".--") //to access the morse translation of ".--"
 All the test strings would be valid to the point that they could be reliably decoded as described above, so you may skip checking for errors and exceptions, just do your best in figuring out what the message is!
 */
+
 let morse_obj = {
 				".-": "A",
 				"-...": "B",
@@ -81,15 +86,27 @@ let morse_obj = {
 
 bits = '1100110011001100000011000000111111001100111111001111110000000000000011001111110011111100111111000000110011001111110000001111110011001100000011'//HEY JUDE
 
-var decodeBits = function(bits){
+var decodeBits = (bits) => {
     // ToDo: Accept 0's and 1's, return dots, dashes and spaces
-    return bits.replace('111', '-').replace('000', ' ').replace('1', '.').replace('0', '');
+    return bits
+    .replace(/[1]{6}/g, "-")
+    .replace(/[1]{2}/g, ".")
+    .replace(/[0]{4}/g, " ")
+    .replace(/[0]{2}/g, "")
 }
 
-var decodeMorse = function(morseCode){
-    // ToDo: Accept dots, dashes and spaces, return human-readable message
-    return morseCode.replace('.', morse_obj['.']).replace('-', morse_obj['-']).replace(' ', '');
-}
+// var decodeMorse = function(morseCode){
+//     // ToDo: Accept dots, dashes and spaces, return human-readable message
+//     return morseCode.replace('.', morse_obj['.']).replace('-', morse_obj['-']).replace(' ', '');
+// }
 let morse = decodeBits(bits)
 console.log(morse)
+
+function decodeMorse(encoded){
+  let morse = Object.keys(morse_obj);
+  encoded = encoded.split(/\s/);
+  return encoded.map(function(key){
+    if (morse_obj[key]) return morse_obj[key];
+  }).join(" ");
+}
 console.log(decodeMorse(morse))
